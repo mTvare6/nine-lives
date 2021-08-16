@@ -1,14 +1,16 @@
 include config.mk
+BIN=nine-lives
+
 
 all:
-	$(CC) main.c -o nine-lives
+	$(CC) main.c -o $(BIN)
 
 
 install:
-	@cp nine-lives $(DESTDIR)$(PREFIX)/bin/nine-lives
-	@chmod 755 $(DESTDIR)$(PREFIX)/bin/nine-lives
+	@cp $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
+	@chmod 755 $(DESTDIR)$(PREFIX)/bin/$(BIN)
 
 
 uninstall:
-	@rm -f $(DESTDIR)$(PREFIX)/bin/nine-lives
+	@rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
 
