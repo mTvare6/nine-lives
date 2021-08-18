@@ -29,14 +29,10 @@ int main(int argc, char **argv) {
   }
   FILE *fp = fopen(argv[1], "r");
   char *s = malloc(sizeof(char)*128);
-  size_t i = 0;
-  
 
   if(fp != NULL) {
-    while(!feof(fp)) {
-      fscanf(fp, "%s", s);
-      i++;
-    }
+    fseek(fp, 0, SEEK_END);
+    size_t i = ftell(fp);
     fseek(fp, rand() % (i + 1), SEEK_SET);
     fscanf(fp, "%s", s);
     fclose(fp);
