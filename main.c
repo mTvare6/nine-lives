@@ -37,15 +37,8 @@ int main(int argc, char **argv) {
       fscanf(fp, "%s", s);
       i++;
     }
-    int r = rand() % (i + 1);
-    i=0;
-    fseek(fp, 0, SEEK_SET);
-    while(!feof(fp)) {
-      if(r==i)
-        break;
-      fscanf(fp, "%s", s);
-      i++;
-    }
+    fseek(fp, rand() % (i + 1), SEEK_SET);
+    fscanf(fp, "%s", s);
     fclose(fp);
   }
   else{
