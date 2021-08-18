@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #define BUFFER 32
-#define LIVES 9
 
+
+#define LIVES 9
 #define CUSTOMFILE 1
 
 void update_clue(char gletter, char **s, char **clue, size_t w_len, size_t *not_found);
@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
     fputs("No file provided\n", stderr);
     exit(1);
   }
-  FILE *fp = fopen(argv[1], "r");;
+  FILE *fp = fopen(argv[1], "r");
   char *s = malloc(sizeof(char)*128);
-  int i = 0;
+  size_t i = 0;
   
 
   if(fp != NULL) {
@@ -46,6 +46,7 @@ int main(int argc, char **argv) {
       fscanf(fp, "%s", s);
       i++;
     }
+    fclose(fp);
   }
   else{
     fputs("Unable to open file provided\n", stderr);
@@ -58,7 +59,7 @@ int main(int argc, char **argv) {
 
 
   size_t not_found = w_len;
-  int lives = LIVES;
+  uint16_t lives = LIVES;
 
   char *clue = malloc(w_len * sizeof(char));
   memset(clue, '?', w_len);
