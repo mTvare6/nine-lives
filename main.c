@@ -9,7 +9,7 @@
 #define LIVES 9
 #define CUSTOMFILE 1
 
-void update_clue(char gletter, char **s, char **clue, size_t w_len, size_t *not_found);
+void update_clue(char gletter, char *s, char *clue, size_t w_len, size_t *not_found);
 char *readString();
 
 int main(int argc, char **argv) {
@@ -31,8 +31,11 @@ int main(int argc, char **argv) {
   char *s = malloc(sizeof(char)*128);
 
   if(fp != NULL) {
-    fseek(fp, 0, SEEK_END);
-    size_t i = ftell(fp);
+    size_t i=0;
+    while(!feof(fp)){
+      fscanf(fp, "%s", s);
+      i++;
+    }
     fseek(fp, rand() % (i + 1), SEEK_SET);
     fscanf(fp, "%s", s);
     fclose(fp);
@@ -65,7 +68,7 @@ int main(int argc, char **argv) {
     }
 
     if (strstr(s, gletter)) {
-      update_clue(gletter[0], &s, &clue, w_len, &not_found);
+      update_clue(gletter[0], s, clue, w_len, &not_found);
       if(not_found==0){
         puts(s);
         guessed = true;
@@ -102,11 +105,11 @@ char *readString() {
   return str;
 }
 
-void update_clue(char gletter, char **s, char **clue, size_t w_len, size_t *not_found) {
+void update_clue(char gletter, char *s, char *clue, size_t w_len, size_t *not_found) {
   size_t i = 0;
   while (i < w_len) {
-    if ((*s)[i] == gletter) {
-      (*clue)[i] = gletter;
+    if (*(s+i) == gletter) {
+      *(clue+i) = gletter;
       *not_found-=1;
     }
     i++;
