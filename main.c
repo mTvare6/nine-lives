@@ -32,10 +32,7 @@ int main(int argc, char **argv) {
 
   if(fp != NULL) {
     size_t i=0;
-    while(!feof(fp)){
-      fscanf(fp, "%s", s);
-      i++;
-    }
+    for(; fscanf(fp, "%s", s)==1; i++);
     fseek(fp, rand() % (i + 1), SEEK_SET);
     fscanf(fp, "%s", s);
     fclose(fp);
@@ -108,8 +105,8 @@ char *readString() {
 void update_clue(char gletter, char *s, char *clue, size_t w_len, size_t *not_found) {
   size_t i = 0;
   while (i < w_len) {
-    if (*(s+i) == gletter) {
-      *(clue+i) = gletter;
+    if (s[i] == gletter) {
+      clue[i] = gletter;
       *not_found-=1;
     }
     i++;

@@ -3,7 +3,7 @@ BIN=nine-lives
 
 
 all:
-	$(CC) main.c -o $(BIN)
+	$(CC) main.c  -O3 -o $(BIN)
 
 
 install:
